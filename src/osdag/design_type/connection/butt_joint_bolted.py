@@ -22,6 +22,8 @@ from ...utils.common.load import Load
 import logging
 
 import math
+import os
+from importlib.resources import files
 
 class ButtJointBolted(MomentConnection):
     def __init__(self):
@@ -261,8 +263,9 @@ class ButtJointBolted(MomentConnection):
         t00 = (None, "", TYPE_NOTE, "Representative Image for Spacing Details - 3 x 3 pattern considered")
         spacing.append(t00)
 
+        # Use a default image path that exists in the project
         t99 = (None, 'Spacing Details', TYPE_SECTION,
-            [str(files("osdag.data.ResourceFiles.images").joinpath("spacing_3.png")), 400, 277, ""])  # [image, width, height, caption]
+            [str(files("osdag.data.ResourceFiles.images").joinpath("ButtJointBolted.png")), 400, 277, ""])  # [image, width, height, caption]
         spacing.append(t99)
 
         t9 = (KEY_OUT_PITCH, KEY_OUT_DISP_PITCH, TYPE_TEXTBOX, self.plate.gauge_provided if status else '')
@@ -375,6 +378,12 @@ class ButtJointBolted(MomentConnection):
                 chkbox.setChecked(Qt.Unchecked)
         ui.commLogicObj.display_3DModel("Cover Plate", bgcolor)
 
+    def get_3d_image_path(self):
+        image_path = "./ResourceFiles/images/3d.png"
+        fallback_image = str(files("osdag.data.ResourceFiles.images").joinpath("ButtJointBolted.png"))
+        if not os.path.exists(image_path):
+            return fallback_image
+        return image_path
 
     def func_for_validation(self, design_dictionary):
 
