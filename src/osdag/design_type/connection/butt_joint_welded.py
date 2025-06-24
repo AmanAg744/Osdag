@@ -354,7 +354,7 @@ class ButtJointWelded(MomentConnection):
         t4 = ('Plate2', self.call_3DPlate)
         components.append(t4)
 
-        return components
+        return componentsconda 
 
     def call_3DPlate(self, ui, bgcolor):
         from PyQt5.QtWidgets import QCheckBox
