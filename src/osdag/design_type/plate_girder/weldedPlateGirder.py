@@ -3444,7 +3444,7 @@ class PlateGirderWelded(Member):
 
 
         #deflection checks
-        if self.evaluate_deflection_kNm_mm(self,self.load.moment, self.effective_length, self.material.modulus_of_elasticity, self.loading_case, self.deflection_criteria):
+        if self.evaluate_deflection_kNm_mm(self,self.load.moment, self.length, self.material.modulus_of_elasticity, self.loading_case, self.deflection_criteria):
             self.defl_check = True
             logger.info("Deflection Check passed")
         else:
@@ -3658,7 +3658,7 @@ class PlateGirderWelded(Member):
 
 
         #deflection checks
-        if self.evaluate_deflection_kNm_mm(self,self.load.moment, self.effective_length, self.material.modulus_of_elasticity, self.loading_case, self.deflection_criteria):
+        if self.evaluate_deflection_kNm_mm(self,self.load.moment, self.length, self.material.modulus_of_elasticity, self.loading_case, self.deflection_criteria):
             self.defl_check = True
             # logger.info("Deflection Check passed")
         else:
@@ -3802,7 +3802,7 @@ class PlateGirderWelded(Member):
         if self.beta_b_lt == None:
             self.beta_b_lt = 0
         self.betab = round(self.beta_b_lt,2)
-        self.effectivearea = Unsymmetrical_I_Section_Properties.calc_area(self,self.total_depth, self.top_flange_width, self.bottom_flange_width, self.web_thickness, self.top_flange_thickness, self.bottom_flange_thickness)
+        self.effectivearea = Unsymmetrical_I_Section_Properties.calc_area(self,self.total_depth, self.top_flange_width, self.bottom_flange_width, self.web_thickness, self.top_flange_thickness, self.bottom_flange_thickness)/100
         if self.Md == None:
             self.Md = 0
 
