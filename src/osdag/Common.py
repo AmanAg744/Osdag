@@ -350,6 +350,33 @@ KEY_DISP_COLUMNCOVERPLATEWELD = 'Column-to-Column Cover Plate Welded Connection'
 KEY_DISP_LAPJOINTBOLTED = 'Lap Joint Bolted Connection'
 KEY_DISP_LAPJOINTWELDED = 'Lap Joint Welded Connection'
 KEY_DISP_BUTTJOINTBOLTED = 'Butt Joint Bolted Connection'
+WELD_SIZES = [3, 5, 6, 10, 12]
+
+# MADE THIS t.s.
+KEY_DISP_BUTTJOINTWELDED = 'Butt Joint Welded Connection'
+KEY_OUT_UTILISATION_RATIO = 'Utilisation Ratio'
+KEY_OUT_DISP_UTILISATION_RATIO = 'Utilisation Ratio'
+KEY_OUT_NO_COVER_PLATE = 'No Cover Plate'
+KEY_OUT_DISP_NO_COVER_PLATE = 'No Cover Plate'
+KEY_OUT_WIDTH_COVER_PLATE = 'Width of Cover Plate'
+KEY_OUT_DISP_WIDTH_COVER_PLATE = 'Width of Cover Plate'
+KEY_OUT_THICKNESS_COVER_PLATE = 'Thickness of Cover Plate'
+KEY_OUT_DISP_THICKNESS_COVER_PLATE = 'Thickness of Cover Plate'
+KEY_OUT_LENGTH_COVER_PLATE = 'Length of Cover Plate'
+KEY_OUT_DISP_LENGTH_COVER_PLATE = 'Length of Cover Plate'
+DISP_TITLE_COVER_PLATE = 'Cover Plate Details'
+KEY_WELD_SIZE = 'Weld.Size'
+KEY_DISP_WELD_SIZE = 'Weld Size'
+KEY_DISP_COVER_PLT = 'Cover Plate *'
+KEY_DP_WELD_SIZE = 'Weld.Size'
+KEY_WELD_GRADE = 'Weld.Grade'
+KEY_EFF_THROAT_THICKNESS = 'Effective Throat Thickness'
+KEY_DESIGN_STRENGTH_WELD = 'Design Strength of Weld'
+KEY_OUT_DISP_WELD_STRENGTH_kN = 'Strength (kN)'
+
+# end
+
+
 # KEY_DISP_BEAMENDPLATE = 'Beam End Plate Connection'
 KEY_DISP_COLUMNENDPLATE = 'Column-to-Column End Plate Connection'
 KEY_DISP_BCENDPLATE = 'Beam-to-Column End Plate Connection'
@@ -884,6 +911,7 @@ VALUES_TRUSSBOLT_THK = ['8', '10', '12', '14', '16']
 
 VALUES_MEMBERS = ['2', '3', '4', '5', '6', '7', '8']
 ALL_WELD_SIZES = [3, 4, 5, 6, 8, 10, 12, 14, 16]
+
 VALUES_TYP_ANCHOR = ['End Plate Type', 'IS 5624-Type A', 'IS 5624-Type B']
 VALUES_GRD_FOOTING = ['Select Grade', 'M10', 'M15', 'M20', 'M25', 'M30', 'M35', 'M40', 'M45', 'M50', 'M55']
 VALUES_TYP = [TYP_BEARING, TYP_FRICTION_GRIP]
@@ -2166,6 +2194,7 @@ KEY_OUT_DISP_WELD_SIZE_STIFFENER = 'Size at Stiffener (mm)'
 KEY_OUT_DISP_WELD_SIZE_STIFFENER1 = 'Weld Size at Stiffener (mm)'
 KEY_OUT_WELD_STRENGTH = 'Weld.Strength'
 KEY_OUT_DISP_WELD_STRENGTH = 'Strength (N/mm)'
+
 KEY_OUT_WELD_STRESS = 'Weld.Stress'
 KEY_OUT_DISP_WELD_STRESS = 'Stress (N/mm)'
 KEY_OUT_WELD_LENGTH = 'Weld.Length'
