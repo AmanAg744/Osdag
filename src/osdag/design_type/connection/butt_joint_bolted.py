@@ -609,10 +609,12 @@ class ButtJointBolted(MomentConnection):
                         
                         num_bolts = float(self.tensile_force) / ( self.bolt.bolt_capacity / 1000)
                         
-                        if num_bolts <= 2:
-                            self.bolt_dia_grade_status = True
-                            break
-                            
+                        #if num_bolts <= 2:
+                        #    self.bolt_dia_grade_status = True
+                        #    break
+                        # Accept any valid combination, not just those with <= 2 bolts
+                        self.bolt_dia_grade_status = True
+                        break   
                     except Exception as e:
                         logger.error(f"Error in bolt calculations: {str(e)}")
                         continue
