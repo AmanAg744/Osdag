@@ -3114,7 +3114,7 @@ class PlateGirderWelded(Member):
             return mass + mass_stiff
 
         results = []
-        for run in range(10):
+        for run in range(5):
             # Call PSO as usual
             best_u, best_cost = pso(
                 obj_norm,
