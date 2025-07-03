@@ -2018,6 +2018,9 @@ class CommonDesignLogic(object):
         T_fb = int(Val_obj.bottom_flange_thickness)
         print("Bottom Flange Thickness : ", T_fb)
 
+        print("========================DEBUG========================")
+        print(Val_obj.c)
+        print("========================DEBUG========================")
         gap = int(Val_obj.c)
         print("Gap Between Stiffener : ", gap)
 

@@ -1,10 +1,11 @@
 # optimised_plate_girder_refactored.py
 
-from .ISection import ISection
+from ISection import ISection
 from .notch import Notch
 from .plate import Plate
 from .filletweld import FilletWeld
 import math
+import numpy as np
 import time
 
 from OCC.Core.gp import gp_Pnt, gp_Vec, gp_Trsf, gp_Ax1, gp_Dir, gp_Ax3
