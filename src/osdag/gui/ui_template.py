@@ -56,6 +56,7 @@ from ..design_type.flexural_member.flexure import Flexure
 from ..design_type.flexural_member.flexure_cantilever import Flexure_Cantilever
 from ..design_type.flexural_member.flexure_othersupp import Flexure_Misc
 from ..design_type.connection.butt_joint_bolted import ButtJointBolted
+from ..design_type.connection.butt_joint_welded import ButtJointWelded
 from ..gusset_connection import GussetConnection
 import logging
 import subprocess
@@ -1882,6 +1883,8 @@ class Window(QMainWindow):
             return LapJointBolted
         elif name == KEY_DISP_BUTTJOINTBOLTED:
             return ButtJointBolted
+        elif name == KEY_DISP_BUTTJOINTWELDED:
+            return ButtJointWelded
         else:
             return GussetConnection
 # Function for getting inputs from a file
@@ -2121,7 +2124,7 @@ class Window(QMainWindow):
                                                   KEY_DISP_ENDPLATE, KEY_DISP_BASE_PLATE, KEY_DISP_SEATED_ANGLE, KEY_DISP_TENSION_BOLTED,
                                                   KEY_DISP_TENSION_WELDED, KEY_DISP_COLUMNCOVERPLATE, KEY_DISP_COLUMNCOVERPLATEWELD,
                                                   KEY_DISP_COLUMNENDPLATE, KEY_DISP_BCENDPLATE, KEY_DISP_BB_EP_SPLICE,
-                                                  KEY_DISP_COMPRESSION_COLUMN,KEY_DISP_FLEXURE,KEY_DISP_FLEXURE2,KEY_DISP_COMPRESSION_Strut,KEY_DISP_LAPJOINTBOLTED,KEY_DISP_BUTTJOINTBOLTED]: # , KEY_DISP_FLEXURE
+                                                  KEY_DISP_COMPRESSION_COLUMN,KEY_DISP_FLEXURE,KEY_DISP_FLEXURE2,KEY_DISP_COMPRESSION_Strut,KEY_DISP_LAPJOINTBOLTED,KEY_DISP_BUTTJOINTBOLTED,KEY_DISP_BUTTJOINTWELDED]: # , KEY_DISP_FLEXURE
                 # print(self.display, self.folder, main.module, main.mainmodule)
                 print("common start")
                 print(f"main object type: {type(main)}")
