@@ -54,6 +54,7 @@ from .BBCad.BBCoverPlateBoltedCAD import BBCoverPlateBoltedCAD
 
 from .SimpleConnections.BoltedLapJoint.bolted_lap_joint import *
 from .SimpleConnections.BoltedButtJoint.Butt_joint_bolted import *
+from .SimpleConnections.WeldedButtJoint.Welded_Butt_Joint import *
 
 from .MomentConnections.BBSpliceCoverlateCAD.WeldedCAD import BBSpliceCoverPlateWeldedCAD
 from .MomentConnections.BBEndplate.BBEndplate_cadFile import CADFillet
@@ -674,7 +675,7 @@ class CommonDesignLogic(object):
             snut_space = A.supporting_section.flange_thickness + A.seated.thickness + nut_T
             sbnut_space = A.supported_section.flange_thickness + A.seated.thickness + nut_T
             tnut_space = A.supported_section.flange_thickness + A.top_angle.thickness + nut_T
-            tbnut_space = A.supporting_section.flange_thickness + A.top_angle.thickness + nut_T
+            tbnut_space = A.supporting_section.web_thickness + A.top_angle.thickness + nut_T
 
             nutBoltArray = seatNutBoltArray(A.bolt, nut, bolt, snut_space, sbnut_space, tnut_space, tbnut_space, True)
             colflangeconn = seatColFlangeBeamWeb(supporting, supported, seatangle, topclipangle, nutBoltArray, gap)
@@ -1837,6 +1838,29 @@ class CommonDesignLogic(object):
                             self.bolt_rows, self.bolt_cols, self.pitch, self.gauge, self.edge, self.end, self.number_bolts)
             return butt_joint, plate1, plate2, platec, bolts, nuts
 
+    def createWeldedButtJoint(self):
+        Conn = self.module_class
+        self.plate1_thickness = float(Conn.plate1thk)
+        self.plate2_thickness = float(Conn.plate2thk)
+        self.plate_width = float(Conn.width)
+        self.cover_thickness = float(Conn.calculated_cover_plate_thickness)
+        self.weld_size = float(Conn.weld_size)
+        self.weld_length = float(Conn.weld_length_provided)
+
+        # Call function to create the welded joint
+        plate1_model, plate2_model, cover_plate_model, welds_models = create_welded_butt_joint(
+            plate_width=self.plate_width,
+            plate1_thickness=self.plate1_thickness,
+            plate2_thickness=self.plate2_thickness,
+            cover_thickness=self.cover_thickness,
+            weld_size=self.weld_size,
+            weld_length=self.weld_length
+        )
+        self.nuts_models = []   # 🔧 prevents crash for welded
+        self.bolt_models = []   # 🔧 optional
+        return plate1_model, plate2_model, cover_plate_model, welds_models
+
+
     def createSimplySupportedBeam(self):
 
         Flex = self.module_class
@@ -2330,12 +2354,13 @@ class CommonDesignLogic(object):
             if self.component == "Model":
                 osdag_display_shape(self.display, self.plate1_model, update=True, material=Graphic3d_NOM_ALUMINIUM)
                 osdag_display_shape(self.display, self.plate2_model, update=True)
-                for bolt in self.bolt_models:
-                    osdag_display_shape(self.display, bolt, update=True,
-                                            color=Quantity_NOC_SADDLEBROWN)
-                for nut in self.nuts_models:
-                    osdag_display_shape(self.display, nut, update=True,
-                                            color=Quantity_NOC_SADDLEBROWN)
+                if hasattr(self, 'bolt_models'):
+                    for bolt in self.bolt_models:
+                        osdag_display_shape(self.display, bolt, update=True, color=Quantity_NOC_SADDLEBROWN)
+
+                    if hasattr(self, 'nuts_models'):
+                        for nut in self.nuts_models:
+                            osdag_display_shape(self.display, nut, update=True, color=Quantity_NOC_SADDLEBROWN)
                     
         elif self.mainmodule == 'Butt Joint Bolted Connection':
             self.col = self.module_class()
@@ -2345,13 +2370,28 @@ class CommonDesignLogic(object):
                 osdag_display_shape(self.display, self.plate1_model, update=True, material=Graphic3d_NOM_ALUMINIUM)
                 osdag_display_shape(self.display, self.plate2_model, update=True)
                 osdag_display_shape(self.display, self.platec_model, update=True)
-                for bolt in self.bolt_models:
-                    osdag_display_shape(self.display, bolt, update=True,
-                                            color=Quantity_NOC_SADDLEBROWN)
-                for nut in self.nuts_models:
-                    osdag_display_shape(self.display, nut, update=True,
-                                            color=Quantity_NOC_SADDLEBROWN)                     
+                if hasattr(self, 'bolt_models'):
+                    for bolt in self.bolt_models:
+                        osdag_display_shape(self.display, bolt, update=True, color=Quantity_NOC_SADDLEBROWN)
 
+                    if hasattr(self, 'nuts_models'):
+                        for nut in self.nuts_models:
+                            osdag_display_shape(self.display, nut, update=True, color=Quantity_NOC_SADDLEBROWN)
+                                      
+        elif self.mainmodule == 'Butt Joint Welded Connection':
+            self.col = self.module_class()
+            self.plate1_model, self.plate2_model, self.cover_plate_model, self.welds_models = self.createWeldedButtJoint()
+
+            if self.component == "Model":
+                osdag_display_shape(self.display, self.plate1_model, update=True, material=Graphic3d_NOM_ALUMINIUM)
+                osdag_display_shape(self.display, self.plate2_model, update=True)
+                osdag_display_shape(self.display, self.cover_plate_model, update=True)
+                if hasattr(self, 'welds_models'):
+                    for weld in self.welds_models:
+                        osdag_display_shape(self.display, weld, update=True, color=Quantity_NOC_SADDLEBROWN)
+                for nut in self.nuts_models:
+                    osdag_display_shape(self.display, nut, update=True, color=Quantity_NOC_SADDLEBROWN)
+                    
         elif self.mainmodule == 'Flexure Member':
             self.flex = self.module_class()
             self.FObj = self.createSimplySupportedBeam()
